@@ -1,9 +1,6 @@
 FROM php:8.1.32-fpm-alpine
 
-ARG INSTALL_DIR=/srv
-ARG PROJECT_NAME=satellite
-
-WORKDIR ${INSTALL_DIR}
+WORKDIR /srv
 
 # download PHP deps and modules
 RUN apk add --no-cache \
@@ -32,4 +29,4 @@ RUN apk add --no-cache \
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # initialize satellite
-RUN composer create-project esn/satellite-project:5.0.0 ${PROJECT_NAME} --repository-url https://packages.esn.org
+RUN composer create-project esn/satellite-project:5.0.0 satellite --repository-url https://packages.esn.org
