@@ -1,0 +1,22 @@
+services:
+  # mysql:
+  #   image: mysql:stable
+
+  satellite:
+    build:
+      context: images
+      dockerfile: satellite.Dockerfile
+    container_name: satellite
+    # depends_on:
+    #   - mysql
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: nginx
+    ports:
+      - 80:80
+      - 443:8000
+    volumes:
+      - ./conf/nginx.conf:/etc/nginx/conf.d/nginx.conf:ro
+    depends_on:
+      - satellite
